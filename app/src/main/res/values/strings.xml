@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Fan Remote</string>
+    <string name="fan_off">0</string>
+    <string name="fan_low">1</string>
+    <string name="fan_medium">2</string>
+    <string name="fan_high">3</string>
+    <string name="fan_highest">4</string>
+
+    <string name="fan_off_word">OFF</string>
+    <string name="fan_low_word">ONE</string>
+    <string name="fan_medium_word">TWO</string>
+    <string name="fan_high_word">THREE</string>
+    <string name="fan_highest_word">FOUR</string>
+</resources>

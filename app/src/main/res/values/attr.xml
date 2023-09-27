@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="FanRemoteView">
+        <attr name="color1" format="color"/>
+        <attr name="color2" format="color"/>
+        <attr name="color3" format="color"/>
+        <attr name="color4" format="color"/>
+    </declare-styleable>
+</resources>
