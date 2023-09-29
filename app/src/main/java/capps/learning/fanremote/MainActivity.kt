@@ -16,6 +16,13 @@ class MainActivity : AppCompatActivity() {
             mySwitch.setOnCheckedChangeListener { _, isChecked ->
                 fanRemoteView.changeLabelToWords(isChecked)
             }
+
+            fanRemoteView.setOnFanSpeedChangedListener(object :
+                FanRemoteView.OnFanSpeedChangedListener {
+                override fun onFanSpeedChanged(fanSpeed: FanRemoteView.FanSpeed) {
+                    fanSpeedText.text = getString(fanSpeed.label)
+                }
+            })
         }
     }
 }

@@ -11,7 +11,7 @@ import android.view.View
 import androidx.core.content.withStyledAttributes
 import kotlin.math.min
 
-private const val RADIUS_OFFSET_LABEL = 30
+private const val RADIUS_OFFSET_LABEL = 65
 private const val RADIUS_OFFSET_INDICATION = -35
 
 class FanRemoteView @JvmOverloads constructor(
@@ -27,6 +27,10 @@ class FanRemoteView @JvmOverloads constructor(
     private var highColor = 0
     private var highestColor = 0
 
+    private var onFanSpeedChangedListener: OnFanSpeedChangedListener? = null
+
+
+
     init {
         isClickable = true
         context.withStyledAttributes(attrs, R.styleable.FanRemoteView) {
@@ -37,6 +41,15 @@ class FanRemoteView @JvmOverloads constructor(
         }
     }
 
+    fun setOnFanSpeedChangedListener(listener: OnFanSpeedChangedListener) {
+        this.onFanSpeedChangedListener = listener
+        onFanSpeedChangedListener?.onFanSpeedChanged(fanSpeed)
+    }
+
+    interface OnFanSpeedChangedListener {
+        fun onFanSpeedChanged(fanSpeed: FanSpeed)
+    }
+
     fun changeLabelToWords(enable: Boolean) {
         if (enable) {
             fanSpeed.updateLabelsToWords()
@@ -44,6 +57,7 @@ class FanRemoteView @JvmOverloads constructor(
             fanSpeed.resetLabelToNumbers()
         }
 
+        onFanSpeedChangedListener?.onFanSpeedChanged(fanSpeed)
         invalidate()
     }
 
@@ -52,6 +66,7 @@ class FanRemoteView @JvmOverloads constructor(
 
         fanSpeed = fanSpeed.next()
         contentDescription = resources.getString(fanSpeed.label)
+        onFanSpeedChangedListener?.onFanSpeedChanged(fanSpeed)
 
         invalidate()
         return true
@@ -64,7 +79,7 @@ class FanRemoteView @JvmOverloads constructor(
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
         textAlign = Paint.Align.CENTER
-        textSize = 55.0f
+        textSize = 35.0f
         typeface = Typeface.create("", Typeface.BOLD)
     }
 
@@ -103,7 +118,7 @@ class FanRemoteView @JvmOverloads constructor(
         }
     }
 
-    private enum class FanSpeed(var label: Int) {
+    enum class FanSpeed(var label: Int) {
         OFF(R.string.fan_off), LOW(R.string.fan_low), MEDIUM(R.string.fan_medium), HIGH(R.string.fan_high), HIGHEST(
             R.string.fan_highest
         );
